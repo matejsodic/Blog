@@ -1,0 +1,29 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="style.css" type="text/css">
+    <title>Admin login</title>
+</head>
+<body>
+<div class="container">
+    <form action="#" th:action="@{/register}" method="POST">
+        <label for="username">Username</label>
+        <input type="text" name="username" id="username" class="form-control" placeholder="Enter your username">
+
+        <label for="email">Email</label>
+        <input type="email" name="email" id="email" class="form-control" placeholder="Enter your email">
+
+        <label for="password">Password</label>
+        <input type="password" name="password" id="password" class="form-control" placeholder="Enter your password">
+
+        <input type="submit" value="register" class="btn btn-primary btncustom">
+
+    </form>
+</div>
+</body>
+</html>

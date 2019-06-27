@@ -1,0 +1,41 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/style.css" type="text/css">
+    <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js"></script>
+    <script>tinymce.init({selector:'textarea'});</script>
+    <title>Document</title>
+</head>
+<body>
+<div class="container containercustom">
+
+    <form action="#" th:action="${#httpServletRequest.requestURI}" method="POST" enctype="multipart/form-data">
+        <div class="form-group">
+
+            <label for="postname">Postname</label>
+            <input type="text" name="postname" id="postname" class="form-control" placeholder="Enter post name" th:value="${post.getPostname()}">
+
+            <label for="postpreview">Post preview</label>
+            <textarea name="postpreview" id="postpreview" class="form-control" placeholder="Enter post content" th:text="${post.getPostpreview()}" rows="10" cols="100"></textarea>
+
+            <label for="postimages">Post image</label>
+            <input type="file" name="postimagesname" id="postimages" class="form-control-file" placeholder="Upload images" multiple><br>
+
+            <label for="datecreated">Date created</label>
+            <input type="text" name="datecreated" id="datecreated" class="form-control" placeholder="Enter date" th:value="${#dates.format(post.getDateCreated(), 'dd-MM-yyyy')}" readonly>
+
+            <label for="datemodified">Date modified</label>
+            <input type="text" name="datemodified" id="datemodified" class="form-control" th:value="${#dates.format(post.getDateModified(), 'dd-MM-yyyy')}" readonly>
+
+            <input type="submit" value="Save" class="btn btn-primary">
+
+        </div>
+    </form>
+</div>
+</body>
+</html>

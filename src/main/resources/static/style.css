@@ -1,0 +1,101 @@
+.post-container {
+    margin: 0 auto;
+    margin-top: 20px;
+    width: 62%;
+}
+
+.colcustom {
+    border-radius: 10px;
+    background-color: #e9ecef;
+}
+
+.postname {
+    font-size: 18px;
+    font-weight: 700;
+    color: black!important;
+    text-transform: uppercase;
+    margin: 5px 10px 0;
+    line-height: 16px;
+}
+
+.postinfo-container {
+    color: black;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
+}
+
+.postinfo {
+    font-size: 13px;
+    font-weight: 400;
+    color: black;
+    margin: -2px 10px 5px;
+    display: block;
+}
+
+.postpreview-container {
+    font-size: 14px;
+    color: #444;
+    line-height: 16px;
+    padding: 8px 10px 10px;
+    word-wrap: break-word;
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+
+}
+
+.firstletterupper:first-letter {
+    text-transform: uppercase;
+}
+
+.readmoretext {
+    font-size: 14px;
+    color: #444;
+    line-height: 16px;
+    padding: 8px 10px 10px;
+}
+
+.button-readmore {
+    margin: 0px 0px 10px 10px;
+    font-size: 20px;
+    font-weight: 700;
+    text-decoration: none;
+    text-transform: uppercase;
+}
+/*--------------------------------------------------------------------------------------ADMIN PAGE----------------------------------------------------------------------------------------------------------*/
+#userh2 {
+    text-align: center;
+}
+
+#posth2 {
+    text-align: center;
+}
+
+.container {
+    margin-top: 25px;
+}
+
+.containercustom2 {
+    width: 80%;
+}
+
+.btncustom {
+    margin-top: 10px;
+}
+
+.tablecustom {
+    table-layout: fixed;
+}
+
+table tr .longtext {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.form-control-custom {
+    height: auto;
+}
+
