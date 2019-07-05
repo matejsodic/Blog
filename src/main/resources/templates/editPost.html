@@ -12,6 +12,9 @@
     <title>Document</title>
 </head>
 <body>
+<form method="POST" th:action="@{/logout}">
+    <input type="submit" value="Logout"/>
+</form>
 <div class="container containercustom">
 
     <form action="#" th:action="${#httpServletRequest.requestURI}" method="POST" enctype="multipart/form-data">
@@ -35,6 +38,7 @@
             <input type="submit" value="Save" class="btn btn-primary">
 
         </div>
+
     </form>
 </div>
 </body>

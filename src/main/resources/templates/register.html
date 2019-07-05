@@ -11,6 +11,9 @@
 </head>
 <body>
 <div class="container">
+
+    <p>Already registered? Click <a th:href="@{/admin3000}">here</a> to login.</p>
+
     <form action="#" th:action="@{/register}" method="POST">
         <label for="username">Username</label>
         <input type="text" name="username" id="username" class="form-control" placeholder="Enter your username">
@@ -21,9 +24,10 @@
         <label for="password">Password</label>
         <input type="password" name="password" id="password" class="form-control" placeholder="Enter your password">
 
-        <input type="submit" value="register" class="btn btn-primary btncustom">
+        <input type="submit" value="Register" class="btn btn-primary btncustom">
 
     </form>
+
 </div>
 </body>
 </html>

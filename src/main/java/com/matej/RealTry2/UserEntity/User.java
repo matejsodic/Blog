@@ -1,6 +1,7 @@
 package com.matej.RealTry2.UserEntity;
 
 import com.matej.RealTry2.PostEntity.Post;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -9,9 +10,7 @@ import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 @Table(name = "users")
@@ -23,7 +22,7 @@ public class User implements UserDetails {
     private int id;
 
     @NotEmpty(message = "Username may not be empty")
-    @Size(min=4, message="Username must be at least 4 characters long")
+    @Size(min = 4, message = "Username must be at least 4 characters long")
     @Column(name = "username")
     private String username;
 
@@ -36,8 +35,15 @@ public class User implements UserDetails {
     @Column(name = "email")
     private String email;
 
-    @OneToMany(mappedBy="user")
+    @Column(name = "active")
+    private Boolean active;
+
+    @OneToMany(mappedBy = "user")
     private Set<Post> posts;
+
+    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.ALL})
+    @JoinTable(name = "user_role", joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id")}, inverseJoinColumns = {@JoinColumn(name = "role_id", referencedColumnName = "id")})
+    private Set<Role> roles = new HashSet<>();
 
     @Override
     public boolean isAccountNonExpired() {
@@ -56,21 +62,28 @@ public class User implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return true;
+        return this.isActive();
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Arrays.asList(new SimpleGrantedAuthority("ADMIN"));
+        List<GrantedAuthority> authorities = new ArrayList<>();
+        this.getRoles().forEach(r -> {
+            GrantedAuthority authority = new SimpleGrantedAuthority("ROLE_" + r.getRole());
+            authorities.add(authority);
+        });
+        return authorities;
+//        return Arrays.asList(new SimpleGrantedAuthority("ROLE_USER"));
     }
 
     public User() {
     }
 
-    public User(String username, String password, String email) {
+    public User(String username, String password, String email, Boolean active) {
         this.username = username;
         this.password = password;
         this.email = email;
+        this.active = active;
     }
 
     public int getId() {
@@ -105,6 +118,14 @@ public class User implements UserDetails {
         this.email = email;
     }
 
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
+    }
+
     public Set<Post> getPosts() {
         return posts;
     }
@@ -112,4 +133,13 @@ public class User implements UserDetails {
     public void setPosts(Set<Post> posts) {
         this.posts = posts;
     }
+
+    public Set<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
+    }
+
 }

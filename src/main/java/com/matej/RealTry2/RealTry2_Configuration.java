@@ -1,5 +1,6 @@
 package com.matej.RealTry2;
 
+import com.matej.RealTry2.UserService.UserRepositoryUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
@@ -8,7 +9,6 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
@@ -23,7 +23,7 @@ public class RealTry2_Configuration extends WebSecurityConfigurerAdapter {
 
     @Qualifier("userRepositoryUserDetailsService")
     @Autowired
-    private UserDetailsService userDetailsService;
+    private UserRepositoryUserDetailsService userDetailsService;
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -41,7 +41,7 @@ public class RealTry2_Configuration extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers("/administration/**").hasRole("ADMIN")
+                .antMatchers("/administration/**").access("hasRole('ROLE_ADMIN')")
                 .antMatchers("/anonymous*").anonymous()
                 .antMatchers("/admin3000*").permitAll()
                 .antMatchers("/register*").permitAll()
@@ -55,7 +55,8 @@ public class RealTry2_Configuration extends WebSecurityConfigurerAdapter {
                 .defaultSuccessUrl("/administration", true)
                 .and()
                 .logout()
-                .logoutUrl("/perform_logout")
+//                .logoutUrl("/perform_logout")
+                .logoutSuccessUrl("/admin3000")
                 .deleteCookies("JSESSIONID");
 
 //        http.httpBasic().disable();

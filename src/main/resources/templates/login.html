@@ -11,6 +11,11 @@
 </head>
 <body>
 <div class="container">
+    <!--<div th:if="${error}">-->
+        <!--Unable to login. Check your username and password.-->
+    <!--</div>-->
+    <p>New here? Click <a th:href="@{/register}">here</a> to register.</p>
+
     <form th:action="@{/perform_login}" method="POST">
         <label for="username">Username</label>
         <input type="text" name="username" id="username" class="form-control" placeholder="Enter your username">
@@ -18,9 +23,9 @@
         <label for="password">Password</label>
         <input type="password" name="password" id="password" class="form-control" placeholder="Enter your password">
 
-        <input type="submit" value="login" class="btn btn-primary">
-
+        <input type="submit" value="Login" class="btn btn-primary">
     </form>
+
 </div>
 </body>
 </html>

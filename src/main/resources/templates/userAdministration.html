@@ -10,6 +10,11 @@
     <title>Document</title>
 </head>
 <body>
+
+<p>Logged in as <span th:text="${name}"></span></p>
+<form method="POST" th:action="@{/logout}">
+    <input type="submit" value="Logout"/>
+</form>
 <div class="container-fluid containercustom2">
 
     <h2 id="userh2">User administration</h2>
@@ -64,6 +69,10 @@
         </table>
     </div>
     <a th:href="@{/administration/postform}" class="btn btn-primary btn-lg">Add post</a>
+
+    <form method="POST" th:action="@{/logout}">
+        <input type="submit" value="Logout"/>
+    </form>
 
 </div>
 </body>

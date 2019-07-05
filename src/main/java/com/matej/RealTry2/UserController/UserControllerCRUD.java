@@ -2,6 +2,8 @@ package com.matej.RealTry2.UserController;
 
 import com.matej.RealTry2.PostEntity.Post;
 import com.matej.RealTry2.PostRepository.PostRepositoryImpl;
+import com.matej.RealTry2.RoleRepository.RoleRepository;
+import com.matej.RealTry2.UserEntity.Role;
 import com.matej.RealTry2.UserEntity.User;
 import com.matej.RealTry2.UserRepository.UserRepositoryImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,8 +13,9 @@ import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.List;
+import javax.servlet.http.HttpServletRequest;
+import java.security.Principal;
+import java.util.*;
 
 @Controller
 public class UserControllerCRUD {
@@ -24,11 +27,14 @@ public class UserControllerCRUD {
     PostRepositoryImpl postRepository;
 
     @Autowired
+    RoleRepository roleRepository;
+
+    @Autowired
     PasswordEncoder passwordEncoder;
 
 
     @GetMapping("/administration")
-    public String showUsers(Model model, User user) {
+    public String showUsers(Model model, User user, Principal principal) {
         List<User> allUsers = new ArrayList<>();
         userRepository.findAll().forEach(allUsers::add);
         model.addAttribute("users", allUsers);
@@ -36,6 +42,8 @@ public class UserControllerCRUD {
         postRepository.findAll().forEach(postList::add);
         model.addAttribute("posts", postList);
         model.addAttribute("user", user);
+
+        model.addAttribute("name", principal.getName());
         return "userAdministration";
     }
 
@@ -92,9 +100,15 @@ public class UserControllerCRUD {
         user.setUsername(username);
         user.setEmail(email);
         user.setPassword(passwordEncoder.encode(password));
-        System.out.println(user.getUsername());
-        System.out.println(user.getEmail());
-        System.out.println(user.getPassword());
+        user.setActive(true);
+
+        Role role = new Role();
+        Set<Role> roles = new HashSet<>();
+        role.setRole("USER");
+        roles.add(role);
+        user.setRoles(roles);
+
+        System.out.println(user.getId() + " " + user.getUsername() + " " + user.getEmail() + " " + user.getPassword() + " " + user.getAuthorities() + " " + user.getRoles() + " " + user.isActive());
         userRepository.save(user);
         return "redirect:/admin3000";
     }

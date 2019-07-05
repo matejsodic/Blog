@@ -23,7 +23,7 @@ import java.util.List;
 
 @Controller
 public class PostController {
-    private static String UPLOAD_FOLDER = "/static/images/";
+    private static String UPLOAD_FOLDER = "C:/images/";
 
     @Autowired
     PostRepositoryImpl postRepository;
