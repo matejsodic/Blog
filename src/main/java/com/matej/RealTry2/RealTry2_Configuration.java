@@ -41,6 +41,8 @@ public class RealTry2_Configuration extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
+                .antMatchers("/resources/**").permitAll()
+                .antMatchers("/*.css").permitAll()
                 .antMatchers("/administration/**").access("hasRole('ROLE_ADMIN')")
                 .antMatchers("/anonymous*").anonymous()
                 .antMatchers("/admin3000*").permitAll()
@@ -57,7 +59,11 @@ public class RealTry2_Configuration extends WebSecurityConfigurerAdapter {
                 .logout()
 //                .logoutUrl("/perform_logout")
                 .logoutSuccessUrl("/admin3000")
-                .deleteCookies("JSESSIONID");
+                .deleteCookies("JSESSIONID")
+                .and()
+                .rememberMe().tokenValiditySeconds(100000).key("secretKey")
+                .and()
+                .httpBasic().disable();
 
 //        http.httpBasic().disable();
 //        http.authorizeRequests()

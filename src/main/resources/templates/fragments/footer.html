@@ -1,0 +1,11 @@
+
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<body>
+<div class="footer text-center" th:fragment="footer">
+    <p>Copyright &copy;Matej, <span th:text="${#dates.format(#dates.createNow(), 'yyyy')}"></span>.</p>
+</div>
+
+
+</body>
+</html>

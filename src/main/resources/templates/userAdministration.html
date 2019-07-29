@@ -1,5 +1,5 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
+      xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
@@ -11,11 +11,34 @@
 </head>
 <body>
 
-<p>Logged in as <span th:text="${name}"></span></p>
-<form method="POST" th:action="@{/logout}">
-    <input type="submit" value="Logout"/>
-</form>
 <div class="container-fluid containercustom2">
+
+    <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #e3f2fd;">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link py-0" th:href="@{/}">Home <span class="sr-only">(current)</span></a>
+                </li>
+            </ul>
+            <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item active">
+                        <p class="nav-link py-0">Logged in as <span sec:authentication="name"></span></p>
+                        <p class="nav-link py-0">Has roles: <span sec:authentication="principal.authorities"></span></p>
+
+                    </li>
+                    <form method="POST" th:action="@{/logout}" class="form-inline">
+                        <input class="form-control mr-sm-2" type="submit" value="Logout"/>
+                    </form>
+                </ul>
+            </div>
+        </div>
+    </nav>
 
     <h2 id="userh2">User administration</h2>
 
@@ -34,8 +57,10 @@
                 <td th:text="${user.getUsername()}">...</td>
                 <td th:text="${user.getPassword()}" class="longtext">...</td>
                 <td th:text="${user.getEmail()}">...</td>
-                <td class="text-center"><a th:href="@{/administration/edituser/{id}(id=${user.id})}" name="edit" class="btn btn-info btn-sm">Edit</a></td>
-                <td class="text-center"><a th:href="@{/administration/delete/{id}(id=${user.id})}" name="delete" class="btn btn-danger btn-sm">Delete</a></td>
+                <td class="text-center"><a th:href="@{/administration/edituser/{id}(id=${user.id})}" name="edit"
+                                           class="btn btn-info btn-sm">Edit</a></td>
+                <td class="text-center"><a th:href="@{/administration/delete/{id}(id=${user.id})}" name="delete"
+                                           class="btn btn-danger btn-sm">Delete</a></td>
             </tr>
         </th:block>
     </table>
@@ -62,18 +87,16 @@
                     <td th:text="${post.getPostpreview()}" class="longtext">...</td>
                     <td th:text="${#dates.format(post.getDateCreated(), 'dd-MM-yyyy')}">...</td>
                     <td th:text="${#dates.format(post.getDateModified(), 'dd-MM-yyyy')}">...</td>
-                    <td class="text-center"><a th:href="@{/administration/editpost/{id}(id=${post.id})}" name="edit" class="btn btn-info btn-sm">Edit</a></td>
-                    <td class="text-center"><a th:href="@{/administration/deletepost/{id}(id=${post.id})}" name="delete" class="btn btn-danger btn-sm">Delete</a></td>
+                    <td class="text-center"><a th:href="@{/administration/editpost/{id}(id=${post.id})}" name="edit"
+                                               class="btn btn-info btn-sm">Edit</a></td>
+                    <td class="text-center"><a th:href="@{/administration/deletepost/{id}(id=${post.id})}" name="delete"
+                                               class="btn btn-danger btn-sm">Delete</a></td>
                 </tr>
             </th:block>
         </table>
     </div>
     <a th:href="@{/administration/postform}" class="btn btn-primary btn-lg">Add post</a>
-
-    <form method="POST" th:action="@{/logout}">
-        <input type="submit" value="Logout"/>
-    </form>
-
+    <div th:replace="fragments/footer :: footer"></div>
 </div>
 </body>
 </html>

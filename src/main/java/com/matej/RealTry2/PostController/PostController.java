@@ -57,10 +57,8 @@ public class PostController {
             image.setImagefilepath(fileNameAndPath.toString());
             hehe.add(image);
 
-
             fileNames.append(postImage.getOriginalFilename());
             Files.write(fileNameAndPath, postImage.getBytes());
-
         }
         post.setImages(hehe);
         postRepository.save(post);
@@ -81,6 +79,8 @@ public class PostController {
         Post post = postRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid post Id:" + id));
         Date date = new Date();
         post.setDateModified(date);
+        List<Image> images = (List<Image>) imageRepository.findAll();
+        modelmap.addAttribute("images", images);
         modelmap.addAttribute("post", post);
         return "editPost";
     }
@@ -113,4 +113,10 @@ public class PostController {
         return "postview";
     }
 
+    @GetMapping("/administration/editpost/deleteimage/{id}")
+    public String deleteImage(@PathVariable("id") int id) {
+        Image image = imageRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid image Id:" + id));
+        imageRepository.delete(image);
+        return "redirect:/administration/editpost/{id}";
+    }
 }

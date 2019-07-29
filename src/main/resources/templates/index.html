@@ -1,5 +1,6 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
@@ -11,10 +12,12 @@
     <title>Soda's sodas</title>
 </head>
 <body>
-
+<div class="container">
+    <nav th:replace="fragments/navbar :: navbar"></nav>
+</div>
 <div class="container text-center">
     <div class="jumbotron">
-        <h1>Hey. Hello. Hi.</h1>
+        <h1>Soda's sodas</h1>
     </div>
 </div>
 
@@ -26,22 +29,22 @@
 
                 <div class="postinfo-container">
                     <h3 th:text="${post.getPostname()}" class="postname">First post</h3>
-                    <i class="postinfo">Posted by <span th:text="${post.getUser().getUsername()}">Username</span> on <span th:text="${post.getDateCreated()}">Date</span></i>
+                    <i class="postinfo">Posted by <span th:text="${post.getUser().getUsername()}">Username</span> on
+                        <span th:text="${#dates.format(post.getDateCreated(), 'dd-MMM-yyyy')}">Date</span></i>
                 </div>
 
                 <div class="postpreview-container">
-                    <p class="firstletterupper" th:text="${post.getPostpreview()}">Text.</p>
+                    <p class="firstletterupper" th:text="${#strings.abbreviate(post.getPostpreview(),500)}">Text.</p>
                 </div>
 
                 <p class="readmoretext">Continue reading for more information!</p>
-                <a th:href="@{/post/readmore/{id}(id=${post.id})}" class="button-readmore btn btn-primary btn-sm">Read more</a>
+                <a th:href="@{/post/readmore/{id}(id=${post.id})}" class="button-readmore btn btn-primary btn-sm">Read
+                    more</a>
             </div>
         </div>
     </th:block>
 
-    <div class="footer text-center">
-        <p>Copyright &copy;Matej, <span th:text="${#dates.format(#dates.createNow(), 'yyyy')}"></span>.</p>
-    </div>
+    <div th:replace="fragments/footer :: footer"></div>
 </div>
 
 </body>

@@ -1,7 +1,9 @@
 .post-container {
     margin: 0 auto;
     margin-top: 20px;
+    margin-bottom: 20px;
     width: 62%;
+    word-wrap: break-word;
 }
 
 .colcustom {
@@ -42,8 +44,6 @@
     word-wrap: break-word;
     overflow: hidden;
     text-overflow: ellipsis;
-
-
 }
 
 .firstletterupper:first-letter {
@@ -64,6 +64,17 @@
     text-decoration: none;
     text-transform: uppercase;
 }
+
+.footer-sticky {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: #e3f2fd;
+    color: black;
+    text-align: center;
+}
+
 /*--------------------------------------------------------------------------------------ADMIN PAGE----------------------------------------------------------------------------------------------------------*/
 #userh2 {
     text-align: center;
@@ -98,4 +109,6 @@ table tr .longtext {
 .form-control-custom {
     height: auto;
 }
+
+
 

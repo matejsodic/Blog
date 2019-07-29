@@ -22,7 +22,7 @@ public class User implements UserDetails {
     private int id;
 
     @NotEmpty(message = "Username may not be empty")
-    @Size(min = 4, message = "Username must be at least 4 characters long")
+    @Size(min = 4, max = 15, message = "Username must be between 4 and 15 characters long")
     @Column(name = "username")
     private String username;
 
@@ -31,7 +31,7 @@ public class User implements UserDetails {
     private String password;
 
     @NotEmpty(message = "Email may not be empty")
-    @Email
+    @Email(message = "Invalid email pattern!")
     @Column(name = "email")
     private String email;
 

@@ -1,5 +1,5 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
+      xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
@@ -12,7 +12,28 @@
 <body>
 <div class="container">
 
-    <p>Already registered? Click <a th:href="@{/admin3000}">here</a> to login.</p>
+    <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #e3f2fd;">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link py-0" th:href="@{/}">Home <span class="sr-only">(current)</span></a>
+                </li>
+            </ul>
+        </div>
+        <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link py-0" th:href="@{/admin3000}">Already registered? Click here to login.</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <h2 style="text-align: center">Register</h2>
 
     <form action="#" th:action="@{/register}" method="POST">
         <label for="username">Username</label>
@@ -25,8 +46,9 @@
         <input type="password" name="password" id="password" class="form-control" placeholder="Enter your password">
 
         <input type="submit" value="Register" class="btn btn-primary btncustom">
-
     </form>
+
+    <div th:replace="fragments/footer :: footer"></div>
 
 </div>
 </body>

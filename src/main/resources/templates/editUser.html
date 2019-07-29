@@ -1,5 +1,5 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
+      xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
@@ -9,12 +9,12 @@
     <link rel="stylesheet" href="/style.css" type="text/css">
     <title>Document</title>
 </head>
+
 <body>
-<form method="POST" th:action="@{/logout}">
-    <input type="submit" value="Logout"/>
-</form>
 <div class="container containercustom">
+    <nav th:replace="fragments/navbar :: navbar"></nav>
     <h2 id="userh2">New user/edit user form</h2>
+
     <form action="#" th:action="${#httpServletRequest.requestURI}" method="POST">
         <div class="form-group">
             <label for="username">Username</label>
@@ -29,10 +29,18 @@
             <input type="text" name="email" id="email" class="form-control" placeholder="Enter email"
                    th:value="${user.getEmail()}">
 
+            <label for="roleName">Role</label>
+            <select id="roleName" sec:authorize="hasRole('ROLE_ADMIN')" name="roleName" class="form-control">
+                <option th:each="roleName : ${roles}" th:value="${roleName.getId()}"
+                        th:text="${roleName.getRole()}" th:selected="${user.getRoles().contains(roleName)}">
+                </option>
+            </select>
+
             <input type="submit" value="Save" class="btn btn-primary btncustom">
         </div>
     </form>
-
+    <div th:replace="fragments/footer :: footer"></div>
 </div>
+
 </body>
 </html>

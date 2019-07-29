@@ -1,5 +1,5 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
+      xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
@@ -12,14 +12,24 @@
 <body>
 
 <div class="container text-center">
+    <nav th:replace="fragments/navbar :: navbar"></nav>
     <div class="jumbotron">
         <h1 th:text="${post.getPostname()}"></h1>
     </div>
 </div>
 
 <div class="container">
+
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item" aria-label="breadcrumb"><a th:href="@{/}">Home</a></li>
+            <li class="breadcrumb-item active" aria-current="page" th:text="${post.getPostname()}"></li>
+        </ol>
+    </nav>
+
     <i class="postinfo">Posted by <span th:text="${user.getUsername()}">Username</span> on <span
-            th:text="${post.getDateCreated()}">Date</span></i>
+            th:text="${#dates.format(post.getDateCreated(), 'dd-MMM-yyyy')}">Date</span></i>
+    <br>
 
     <p th:remove="tag" th:utext="${post.getPostpreview()}"></p>
 
@@ -28,6 +38,6 @@
     </th:block>
 </div>
 
-
+<div th:replace="fragments/footer :: footer"></div>
 </body>
 </html>
