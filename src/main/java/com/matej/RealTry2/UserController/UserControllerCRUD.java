@@ -11,9 +11,11 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.security.Principal;
 import java.util.*;
 
@@ -106,7 +108,7 @@ public class UserControllerCRUD {
     }
 
     @PostMapping("/register")
-    public String performRegistration(User user, @RequestParam("username") String username, @RequestParam("email") String email, @RequestParam("password") String password, Errors errors) {
+    public String performRegistration(@Valid User user, @RequestParam("username") String username, @RequestParam("email") String email, @RequestParam("password") String password) {
         user.setUsername(username);
         user.setEmail(email);
         user.setPassword(passwordEncoder.encode(password));

@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="/style.css" type="text/css">
-    <title>Document</title>
+    <title>Administration - edit user</title>
 </head>
 
 <body>
@@ -29,8 +29,8 @@
             <input type="text" name="email" id="email" class="form-control" placeholder="Enter email"
                    th:value="${user.getEmail()}">
 
-            <label for="roleName">Role</label>
-            <select id="roleName" sec:authorize="hasRole('ROLE_ADMIN')" name="roleName" class="form-control">
+            <label for="roleName" th:if="${#authentication.name != user.getUsername()}">Role</label>
+            <select id="roleName" sec:authorize="hasRole('ROLE_ADMIN')" th:if="${#authentication.name != user.getUsername()}" name="roleName" class="form-control">
                 <option th:each="roleName : ${roles}" th:value="${roleName.getId()}"
                         th:text="${roleName.getRole()}" th:selected="${user.getRoles().contains(roleName)}">
                 </option>

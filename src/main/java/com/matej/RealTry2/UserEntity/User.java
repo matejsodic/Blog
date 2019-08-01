@@ -1,6 +1,8 @@
 package com.matej.RealTry2.UserEntity;
 
 import com.matej.RealTry2.PostEntity.Post;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -14,6 +16,8 @@ import java.util.*;
 
 @Entity
 @Table(name = "users")
+@NoArgsConstructor
+@AllArgsConstructor
 public class User implements UserDetails {
 
     @Id
@@ -74,16 +78,6 @@ public class User implements UserDetails {
         });
         return authorities;
 //        return Arrays.asList(new SimpleGrantedAuthority("ROLE_USER"));
-    }
-
-    public User() {
-    }
-
-    public User(String username, String password, String email, Boolean active) {
-        this.username = username;
-        this.password = password;
-        this.email = email;
-        this.active = active;
     }
 
     public int getId() {
