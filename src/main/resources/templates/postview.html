@@ -1,9 +1,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+      xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="stylepost.css" type="text/css">
@@ -19,25 +18,20 @@
 </div>
 
 <div class="container">
-
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
             <li class="breadcrumb-item" aria-label="breadcrumb"><a th:href="@{/}">Home</a></li>
             <li class="breadcrumb-item active" aria-current="page" th:text="${post.getPostname()}"></li>
         </ol>
     </nav>
-
-    <i class="postinfo">Posted by <span th:text="${user.getUsername()}">Username</span> on <span
-            th:text="${#dates.format(post.getDateCreated(), 'dd-MMM-yyyy')}">Date</span></i>
+    <i class="postinfo">Posted by <span th:text="${user.getUsername()}">Username</span> on <span th:text="${#dates.format(post.getDateCreated(), 'dd-MMM-yyyy')}">Date</span></i>
     <br>
-
     <p th:remove="tag" th:utext="${post.getPostpreview()}"></p>
-
     <th:block th:each="image : ${post.getImages()}">
         <img th:src="${image.getImagefilepath()}" alt="Italian Trulli">
     </th:block>
 </div>
-
 <div th:replace="fragments/footer :: footer"></div>
+
 </body>
 </html>

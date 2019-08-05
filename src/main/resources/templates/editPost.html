@@ -1,9 +1,8 @@
 <html   lang="en" xml:lang="en" xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+      xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="/style.css" type="text/css">
@@ -11,27 +10,22 @@
     <script>tinymce.init({selector: 'textarea'});</script>
     <title>Administration - edit post</title>
 </head>
+
 <body>
 <div class="container containercustom">
     <nav th:replace="fragments/navbar :: navbar"></nav>
+
     <form action="#" th:action="${#httpServletRequest.requestURI}" method="POST" enctype="multipart/form-data">
         <div class="form-group">
-
             <label for="postname">Postname</label>
-            <input type="text" name="postname" id="postname" class="form-control" placeholder="Enter post name"
-                   th:value="${post.getPostname()}">
+            <input type="text" name="postname" id="postname" class="form-control" placeholder="Enter post name" th:value="${post.getPostname()}">
 
             <label for="postpreview">Post preview</label>
-            <textarea name="postpreview" id="postpreview" class="form-control" placeholder="Enter post content"
-                      th:text="${post.getPostpreview()}" rows="10" cols="100"></textarea>
+            <textarea name="postpreview" id="postpreview" class="form-control" placeholder="Enter post content" th:text="${post.getPostpreview()}" rows="10" cols="100"></textarea>
 
             <label for="postimages">Post image</label>
-            <input type="file" name="postimagesname" id="postimages" class="form-control-file"
-                   placeholder="Upload images" multiple><br>
+            <input type="file" name="postimagesname" id="postimages" class="form-control-file" placeholder="Upload images" multiple><br>
 
-            <!--<th:block th:each="image : ${images}">-->
-            <!--<img th:src="${image.getImagefilepath()}" alt="Slika se ne moze prikazati">-->
-            <!--</th:block>-->
             <table class="table table-bordered table-hover tablecustom">
                 <thead class="thead-light">
                 <tr>
@@ -41,32 +35,27 @@
                 <th:block th:each="image : ${post.getImages()}">
                     <tr>
                         <td scope="row"><img th:src="${image.getImagefilepath()}" alt="Italian Trulli"></td>
-                        <td class="text-center"><a
-                                th:href="@{/administration/editpost/deleteimage/{id}(id=${image.id})}" name="delete"
-                                class="btn btn-danger btn-sm">Delete</a></td>
+                        <td class="text-center"><a th:href="@{/administration/editpost/deleteimage/{id}(id=${image.id})}" name="delete" class="btn btn-danger btn-sm">Delete</a></td>
                     </tr>
                 </th:block>
             </table>
 
             <th:block th:each="image : ${post.getImages()}">
                 <!--<img th:src="${image.getImagefilepath()}" alt="Italian Trulli">-->
-                <img src="https://via.placeholder.com/150" alt="neradi slika">
+                <img src="https://via.placeholder.com/150" alt="Slika se ne moze prikazati">
             </th:block>
 
             <label for="datecreated">Date created</label>
-            <input type="text" name="datecreated" id="datecreated" class="form-control" placeholder="Enter date"
-                   th:value="${#dates.format(post.getDateCreated(), 'dd-MM-yyyy')}" readonly>
+            <input type="text" name="datecreated" id="datecreated" class="form-control" placeholder="Enter date" th:value="${#dates.format(post.getDateCreated(), 'dd-MM-yyyy')}" readonly>
 
             <label for="datemodified">Date modified</label>
-            <input type="text" name="datemodified" id="datemodified" class="form-control"
-                   th:value="${#dates.format(post.getDateModified(), 'dd-MM-yyyy')}" readonly>
+            <input type="text" name="datemodified" id="datemodified" class="form-control" th:value="${#dates.format(post.getDateModified(), 'dd-MM-yyyy')}" readonly>
 
             <input type="submit" value="Save" class="btn btn-primary">
-
         </div>
-
     </form>
     <div th:replace="fragments/footer :: footer"></div>
 </div>
+
 </body>
 </html>
