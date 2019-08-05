@@ -1,4 +1,4 @@
-package com.matej.RealTry2.UserEntity;
+package com.matej.blog.UserEntity;
 
 import javax.persistence.*;
 import java.util.HashSet;

@@ -1,9 +1,8 @@
-package com.matej.RealTry2.UserEntity;
+package com.matej.blog.UserEntity;
 
-import com.matej.RealTry2.PostEntity.Post;
+import com.matej.blog.PostEntity.Post;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -26,7 +25,7 @@ public class User implements UserDetails {
     private int id;
 
     @NotEmpty(message = "Username may not be empty")
-    @Size(min = 4, max = 15, message = "Username must be between 4 and 15 characters long")
+    @Size(min = 3, max = 15, message = "Username must be between 3 and 15 characters long")
     @Column(name = "username")
     private String username;
 

@@ -1,11 +1,11 @@
-package com.matej.RealTry2.PostEntity;
+package com.matej.blog.PostEntity;
 
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table(name = "post_images")
+@Table(name = "images")
 public class Image {
 
     @Id
@@ -17,7 +17,7 @@ public class Image {
     private String imagefilepath;
 
     @ManyToMany(mappedBy = "images")
-    Set<Post> posts = new HashSet<>();
+    private Set<Post> posts = new HashSet<>();
 
     public Image() {}
 

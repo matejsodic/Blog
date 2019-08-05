@@ -1,18 +1,16 @@
-package com.matej.RealTry2.UserController;
+package com.matej.blog.UserController;
 
-import com.matej.RealTry2.PostEntity.Post;
-import com.matej.RealTry2.PostRepository.PostRepositoryImpl;
-import com.matej.RealTry2.RoleRepository.RoleRepository;
-import com.matej.RealTry2.UserEntity.Role;
-import com.matej.RealTry2.UserEntity.User;
-import com.matej.RealTry2.UserRepository.UserRepositoryImpl;
+import com.matej.blog.PostEntity.Post;
+import com.matej.blog.PostRepository.PostRepositoryImpl;
+import com.matej.blog.RoleRepository.RoleRepository;
+import com.matej.blog.UserEntity.Role;
+import com.matej.blog.UserEntity.User;
+import com.matej.blog.UserRepository.UserRepositoryImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -38,9 +36,9 @@ public class UserControllerCRUD {
     public String showUsers(Model model, User user, Principal principal) {
         List<User> allUsers = new ArrayList<>();
         userRepository.findAll().forEach(allUsers::add);
-        model.addAttribute("users", allUsers);
         List<Post> postList = new ArrayList<>();
         postRepository.findAll().forEach(postList::add);
+        model.addAttribute("users", allUsers);
         model.addAttribute("posts", postList);
         model.addAttribute("user", user);
         model.addAttribute("name", principal.getName());
@@ -51,19 +49,19 @@ public class UserControllerCRUD {
     public String userForm(Model model) {
         User user = new User();
         List<Role> roles = (List<Role>) roleRepository.findAll();
-        model.addAttribute("roles", roles);
         model.addAttribute("user", user);
+        model.addAttribute("roles", roles);
         return "editUser";
     }
 
     @PostMapping("/administration/userform")
-    public String addUser(User user, @RequestParam("username") String username, @RequestParam("password") String password, @RequestParam("email") String email, String roleName, Model model) {
+    public String addUser(User user, @RequestParam("username") String username, @RequestParam("password") String password, @RequestParam("email") String email, @RequestParam("roleName") Integer roleName, Model model) {
         user.setUsername(username);
         user.setPassword(passwordEncoder.encode(password));
         user.setEmail(email);
-        Role role = new Role();
+        Role role = roleRepository.findById(roleName).orElseThrow(() -> new IllegalArgumentException("Invalid role id"));
         Set<Role> roles = new HashSet<>();
-        role.setRole("ROLE" + roleName);
+        roles.add(role);
         user.setRoles(roles);
         model.addAttribute("roles", roles);
         userRepository.save(user);
@@ -81,12 +79,11 @@ public class UserControllerCRUD {
 
     @PostMapping("/administration/edituser/{id}")
     public String editUser(@PathVariable("id") int id, @RequestParam("username") String username, @RequestParam("password") String password, @RequestParam("email") String email, @RequestParam("roleName") Integer roleName) {
-        User oldUser = userRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
+        User oldUser = userRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid user d:" + id));
         oldUser.setUsername(username);
         oldUser.setPassword(passwordEncoder.encode(password));
         oldUser.setEmail(email);
-
-        Role role = roleRepository.findById(roleName).orElseThrow(() -> new IllegalArgumentException("Invalid id "));
+        Role role = roleRepository.findById(roleName).orElseThrow(() -> new IllegalArgumentException("Invalid role id"));
         Set<Role> roles = new HashSet<>();
         roles.add(role);
         oldUser.setActive(true);

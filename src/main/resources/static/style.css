@@ -1,7 +1,5 @@
 .post-container {
-    margin: 0 auto;
-    margin-top: 20px;
-    margin-bottom: 20px;
+    margin: 20px auto;
     width: 62%;
     word-wrap: break-word;
 }

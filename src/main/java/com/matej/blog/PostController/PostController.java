@@ -1,11 +1,11 @@
-package com.matej.RealTry2.PostController;
+package com.matej.blog.PostController;
 
-import com.matej.RealTry2.ImageRepository.ImageRepositoryImpl;
-import com.matej.RealTry2.PostEntity.Image;
-import com.matej.RealTry2.PostEntity.Post;
-import com.matej.RealTry2.PostRepository.PostRepositoryImpl;
-import com.matej.RealTry2.UserEntity.User;
-import com.matej.RealTry2.UserRepository.UserRepositoryImpl;
+import com.matej.blog.ImageRepository.ImageRepositoryImpl;
+import com.matej.blog.PostEntity.Image;
+import com.matej.blog.PostEntity.Post;
+import com.matej.blog.PostRepository.PostRepositoryImpl;
+import com.matej.blog.UserEntity.User;
+import com.matej.blog.UserRepository.UserRepositoryImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
@@ -23,7 +23,7 @@ import java.util.List;
 
 @Controller
 public class PostController {
-    private static String UPLOAD_FOLDER = "C:/images/";
+    private static final String UPLOAD_FOLDER = "C:/images/";
 
     @Autowired
     PostRepositoryImpl postRepository;
@@ -47,7 +47,6 @@ public class PostController {
         post.setPostname(postname);
         post.setDateCreated(datecreated);
         post.setPostpreview(postpreview);
-
         StringBuilder fileNames = new StringBuilder();
         Set<Image> hehe = new HashSet<>();
 
@@ -56,7 +55,6 @@ public class PostController {
             Path fileNameAndPath = Paths.get(UPLOAD_FOLDER, postImage.getOriginalFilename());
             image.setImagefilepath(fileNameAndPath.toString());
             hehe.add(image);
-
             fileNames.append(postImage.getOriginalFilename());
             Files.write(fileNameAndPath, postImage.getBytes());
         }
@@ -80,8 +78,8 @@ public class PostController {
         Date date = new Date();
         post.setDateModified(date);
         List<Image> images = (List<Image>) imageRepository.findAll();
-        modelmap.addAttribute("images", images);
         modelmap.addAttribute("post", post);
+        modelmap.addAttribute("images", images);
         return "editPost";
     }
 
@@ -107,9 +105,9 @@ public class PostController {
         Post post = postRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid post Id:" + id));
         User user = post.getUser();
         Set<Image> images2 = new HashSet<>();
-        modelMap.addAttribute("images", images2);
         modelMap.addAttribute("post", post);
         modelMap.addAttribute("user", user);
+        modelMap.addAttribute("images", images2);
         return "postview";
     }
 

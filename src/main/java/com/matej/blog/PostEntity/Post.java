@@ -1,6 +1,6 @@
-package com.matej.RealTry2.PostEntity;
+package com.matej.blog.PostEntity;
 
-import com.matej.RealTry2.UserEntity.User;
+import com.matej.blog.UserEntity.User;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
@@ -19,7 +19,7 @@ public class Post {
     private int id;
 
     @NotEmpty
-    @Size(min=4, message="Postname must be at least 4 characters long")
+    @Size(min=2, message="Postname must be at least 2 characters long")
     @Column(name = "postname")
     private String postname;
 
@@ -36,7 +36,7 @@ public class Post {
     private String postpreview;
 
     @ManyToMany(cascade = {CascadeType.ALL})
-    @JoinTable(name = "post_post_images", joinColumns = {@JoinColumn(name = "post_id")}, inverseJoinColumns = {@JoinColumn(name = "post_images_id")})
+    @JoinTable(name = "post_images", joinColumns = {@JoinColumn(name = "post_id")}, inverseJoinColumns = {@JoinColumn(name = "images_id")})
     private Set<Image> images = new HashSet<>();
 
     @ManyToOne

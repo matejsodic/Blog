@@ -1,6 +1,6 @@
-package com.matej.RealTry2;
+package com.matej.blog;
 
-import com.matej.RealTry2.UserService.UserRepositoryUserDetailsService;
+import com.matej.blog.UserService.UserRepositoryUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
@@ -27,13 +27,6 @@ public class RealTry2_Configuration extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-//        auth.inMemoryAuthentication()
-//                .withUser("user1").password(passwordEncoder().encode("user1Pass")).roles("USER")
-//                .and()
-//                .withUser("user2").password(passwordEncoder().encode("user2Pass")).roles("USER")
-//                .and()
-//                .withUser("admin").password(passwordEncoder().encode("admin")).roles("ADMIN");
-//        auth.jdbcAuthentication().dataSource(dataSource);
         auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
     }
 
@@ -57,25 +50,12 @@ public class RealTry2_Configuration extends WebSecurityConfigurerAdapter {
                 .defaultSuccessUrl("/administration", true)
                 .and()
                 .logout()
-//                .logoutUrl("/perform_logout")
                 .logoutSuccessUrl("/admin3000")
                 .deleteCookies("JSESSIONID")
                 .and()
                 .rememberMe().tokenValiditySeconds(100000).key("secretKey")
                 .and()
                 .httpBasic().disable();
-
-//        http.httpBasic().disable();
-//        http.authorizeRequests()
-//                .antMatchers("/").permitAll()
-//                .anyRequest().authenticated()
-//                .and()
-//        .formLogin()
-//                .loginPage("/admin3000")
-//                .permitAll()
-//                .and()
-//        .logout()
-//                .permitAll();
     }
 
 

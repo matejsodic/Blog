@@ -1,4 +1,4 @@
-package com.matej.RealTry2;
+package com.matej.blog;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;

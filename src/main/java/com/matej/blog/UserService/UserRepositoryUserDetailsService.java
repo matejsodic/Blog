@@ -1,7 +1,7 @@
-package com.matej.RealTry2.UserService;
+package com.matej.blog.UserService;
 
-import com.matej.RealTry2.UserEntity.User;
-import com.matej.RealTry2.UserRepository.UserRepositoryImpl;
+import com.matej.blog.UserEntity.User;
+import com.matej.blog.UserRepository.UserRepositoryImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

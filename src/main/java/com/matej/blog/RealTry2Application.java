@@ -1,4 +1,4 @@
-package com.matej.RealTry2;
+package com.matej.blog;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
