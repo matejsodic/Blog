@@ -23,7 +23,7 @@ public class Post {
     @Column(name = "postname")
     private String postname;
 
-    @NotEmpty
+
     @Column(name = "date_created")
     private Date dateCreated;
 

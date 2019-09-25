@@ -28,18 +28,20 @@
     </nav>
 
     <h2 style="text-align: center">Register</h2>
-    <form action="#" th:action="@{/register}" method="POST">
+
+    <form action="#" method="POST" th:action="@{/register}" th:object="${user}">
         <label for="username">Username</label>
-        <input type="text" name="username" id="username" class="form-control" placeholder="Enter your username">
+        <input type="text" th:field="*{username}" name="username" id="username" class="form-control" placeholder="Enter your username">
 
         <label for="email">Email</label>
-        <input type="email" name="email" id="email" class="form-control" placeholder="Enter your email">
+        <input type="email" th:field="*{email}" name="email" id="email" class="form-control" placeholder="Enter your email">
 
         <label for="password">Password</label>
-        <input type="password" name="password" id="password" class="form-control" placeholder="Enter your password">
+        <input type="password" th:field="*{password}" name="password" id="password" class="form-control" placeholder="Enter your password">
 
         <input type="submit" value="Register" class="btn btn-primary btncustom">
     </form>
+
     <div th:replace="fragments/footer :: footer"></div>
 </div>
 

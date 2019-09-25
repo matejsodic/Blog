@@ -53,7 +53,7 @@ public class RealTry2_Configuration extends WebSecurityConfigurerAdapter {
                 .logoutSuccessUrl("/admin3000")
                 .deleteCookies("JSESSIONID")
                 .and()
-                .rememberMe().tokenValiditySeconds(100000).key("secretKey")
+                .rememberMe().key("secretKey")
                 .and()
                 .httpBasic().disable();
     }

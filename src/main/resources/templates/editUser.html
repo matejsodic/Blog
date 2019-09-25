@@ -10,16 +10,16 @@
     <nav th:replace="fragments/navbar :: navbar"></nav>
 
     <h2 id="userh2">New user/edit user form</h2>
-    <form action="#" th:action="${#httpServletRequest.requestURI}" method="POST">
+    <form action="#" th:action="${#httpServletRequest.requestURI}" method="POST" th:object="${user}" >
         <div class="form-group">
             <label for="username">Username</label>
-            <input type="text" name="username" id="username" class="form-control" placeholder="Enter username" th:value="${user.getUsername()}">
+            <input type="text" name="username" id="username" class="form-control" placeholder="Enter username" th:field="*{username}" th:value="${user.getUsername()}">
 
             <label for="username">Password</label>
-            <input type="text" name="password" id="password" class="form-control" placeholder="Enter password" th:value="${user.getPassword()}">
+            <input type="text" name="password" id="password" class="form-control" placeholder="Enter password" th:field="*{password}" th:value="${user.getPassword()}">
 
             <label for="email">Email</label>
-            <input type="text" name="email" id="email" class="form-control" placeholder="Enter email" th:value="${user.getEmail()}">
+            <input type="text" name="email" id="email" class="form-control" placeholder="Enter email" th:field="*{email}" th:value="${user.getEmail()}">
 
             <div class="roleWrapper" th:if="${#authentication.name != user.getUsername()}" sec:authorize="hasRole('ROLE_ADMIN')">
                 <label for="roleName">Role</label>

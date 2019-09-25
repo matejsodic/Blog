@@ -7,6 +7,7 @@
         <ul class="navbar-nav mr-auto">
             <li class="nav-item active">
                 <a class="nav-link py-0" th:href="@{/}">Home <span class="sr-only">(current)</span></a>
+                <a class="nav-link py-0"  sec:authorize="isAuthenticated()" th:href="@{/administration}">Administration</a>
             </li>
         </ul>
         <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">

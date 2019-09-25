@@ -18,7 +18,7 @@ import java.security.Principal;
 import java.util.*;
 
 @Controller
-public class UserControllerCRUD {
+public class UserController {
 
     @Autowired
     UserRepositoryImpl userRepository;
@@ -55,15 +55,12 @@ public class UserControllerCRUD {
     }
 
     @PostMapping("/administration/userform")
-    public String addUser(User user, @RequestParam("username") String username, @RequestParam("password") String password, @RequestParam("email") String email, @RequestParam("roleName") Integer roleName, Model model) {
-        user.setUsername(username);
-        user.setPassword(passwordEncoder.encode(password));
-        user.setEmail(email);
+    public String addUser(User user, @RequestParam("roleName") Integer roleName) {
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         Role role = roleRepository.findById(roleName).orElseThrow(() -> new IllegalArgumentException("Invalid role id"));
         Set<Role> roles = new HashSet<>();
         roles.add(role);
         user.setRoles(roles);
-        model.addAttribute("roles", roles);
         userRepository.save(user);
         return "redirect:/administration";
     }
@@ -78,17 +75,14 @@ public class UserControllerCRUD {
     }
 
     @PostMapping("/administration/edituser/{id}")
-    public String editUser(@PathVariable("id") int id, @RequestParam("username") String username, @RequestParam("password") String password, @RequestParam("email") String email, @RequestParam("roleName") Integer roleName) {
-        User oldUser = userRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid user d:" + id));
-        oldUser.setUsername(username);
-        oldUser.setPassword(passwordEncoder.encode(password));
-        oldUser.setEmail(email);
+    public String editUser(@RequestParam("roleName") Integer roleName, @Valid User user) {
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         Role role = roleRepository.findById(roleName).orElseThrow(() -> new IllegalArgumentException("Invalid role id"));
         Set<Role> roles = new HashSet<>();
         roles.add(role);
-        oldUser.setActive(true);
-        oldUser.setRoles(roles);
-        userRepository.save(oldUser);
+        user.setActive(true);
+        user.setRoles(roles);
+        userRepository.save(user);
         return "redirect:/administration";
     }
 
@@ -100,15 +94,14 @@ public class UserControllerCRUD {
     }
 
     @GetMapping("/register")
-    public String loadRegisterPage() {
+    public String loadRegisterPage(User user, Model model) {
+        model.addAttribute("user", user);
         return "register";
     }
 
     @PostMapping("/register")
-    public String performRegistration(@Valid User user, @RequestParam("username") String username, @RequestParam("email") String email, @RequestParam("password") String password) {
-        user.setUsername(username);
-        user.setEmail(email);
-        user.setPassword(passwordEncoder.encode(password));
+    public String performRegistration(@Valid User user) {
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setActive(true);
         Role role = roleRepository.findById(2).orElseThrow(() -> new IllegalArgumentException("Invalid id "));
         Set<Role> roles = new HashSet<>();

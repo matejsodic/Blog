@@ -2,7 +2,7 @@
       xmlns:th="http://www.thymeleaf.org">
 <head>
     <th:block th:include="fragments/head :: head"></th:block>
-    <title>Soda's sodas</title>
+    <title>Bla bla bla bla   ja ja ja ja</title>
 </head>
 <body>
 <div class="container">
@@ -10,24 +10,20 @@
 </div>
 <div class="container text-center">
     <div class="jumbotron">
-        <h1>Soda's sodas</h1>
+        <h1>Bla bla bla bla   ja ja ja ja</h1>
     </div>
 </div>
 
-<div class="container">
+<div class="container post-wrap-container">
     <th:block th:each="post : ${posts}">
         <div class="post-container row no-gutters">
             <div class="col colcustom">
                 <div class="postinfo-container">
                     <h3 th:text="${post.getPostname()}" class="postname">First post</h3>
-                    <i class="postinfo">Posted by <span th:text="${post.getUser().getUsername()}">Username</span> on
-                        <span th:text="${#dates.format(post.getDateCreated(), 'dd-MMM-yyyy')}">Date</span></i>
+                    <i class="postinfo">Posted by <span th:text="${post.getUser().getUsername()}">Username</span> on<span th:text="${#dates.format(post.getDateCreated(), 'dd-MMM-yyyy')}">Date</span></i>
                 </div>
-                <div class="postpreview-container">
-                    <p class="firstletterupper" th:text="${#strings.abbreviate(post.getPostpreview(),500)}">Text.</p>
-                </div>
-                <p class="readmoretext">Continue reading for more information!</p>
-                <a th:href="@{/post/readmore/{id}(id=${post.id})}" class="button-readmore btn btn-primary btn-sm">Read more</a>
+                <div class="postpreview-container"><p class="firstletterupper" th:text="${#strings.abbreviate(post.getPostpreview(),500)}">Text.</p></div>
+                <p class="readmoretext">Continue reading for more information!</p><a th:href="@{/post/readmore/{id}(id=${post.id})}" class="button-readmore btn btn-primary btn-sm">Read more</a>
             </div>
         </div>
     </th:block>

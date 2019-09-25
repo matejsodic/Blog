@@ -11,13 +11,13 @@
 <div class="container containercustom">
     <nav th:replace="fragments/navbar :: navbar"></nav>
 
-    <form action="#" th:action="${#httpServletRequest.requestURI}" method="POST" enctype="multipart/form-data">
+    <form action="#" th:action="${#httpServletRequest.requestURI}" method="POST" enctype="multipart/form-data" th:object="${post}">
         <div class="form-group">
             <label for="postname">Postname</label>
-            <input type="text" name="postname" id="postname" class="form-control" placeholder="Enter post name" th:value="${post.getPostname()}">
+            <input type="text" name="postname" id="postname" class="form-control" placeholder="Enter post name" th:value="${post.getPostname()}" th:field="*{postname}">
 
             <label for="postpreview">Post preview</label>
-            <textarea name="postpreview" id="postpreview" class="form-control" placeholder="Enter post content" th:text="${post.getPostpreview()}" rows="10" cols="100"></textarea>
+            <textarea name="postpreview" id="postpreview" class="form-control" placeholder="Enter post content" th:text="${post.getPostpreview()}" rows="10" cols="100" th:field="*{postpreview}"></textarea>
 
             <label for="postimages">Post image</label>
             <input type="file" name="postimagesname" id="postimages" class="form-control-file" placeholder="Upload images" multiple><br>
@@ -36,16 +36,16 @@
                 </th:block>
             </table>
 
-            <th:block th:each="image : ${post.getImages()}">
-                <!--<img th:src="${image.getImagefilepath()}" alt="Italian Trulli">-->
-                <img src="https://via.placeholder.com/150" alt="Slika se ne moze prikazati">
-            </th:block>
+            <!--<th:block th:each="image : ${post.getImages()}">-->
+                <!--&lt;!&ndash;<img th:src="${image.getImagefilepath()}" alt="Italian Trulli">&ndash;&gt;-->
+                <!--<img src="https://via.placeholder.com/150" alt="Slika se ne moze prikazati">-->
+            <!--</th:block>-->
 
             <label for="datecreated">Date created</label>
-            <input type="text" name="datecreated" id="datecreated" class="form-control" placeholder="Enter date" th:value="${#dates.format(post.getDateCreated(), 'dd-MM-yyyy')}" readonly>
+            <input type="text" name="datecreated" id="datecreated" class="form-control" placeholder="Enter date" th:value="${#dates.format(post.getDateCreated(), 'dd-MM-yyyy')}" th:field="*{dateCreated}" readonly>
 
             <label for="datemodified">Date modified</label>
-            <input type="text" name="datemodified" id="datemodified" class="form-control" th:value="${#dates.format(post.getDateModified(), 'dd-MM-yyyy')}" readonly>
+            <input type="text" name="datemodified" id="datemodified" class="form-control" th:value="${#dates.format(post.getDateModified(), 'dd-MM-yyyy')}" th:field="*{dateModified}" readonly>
 
             <input type="submit" value="Save" class="btn btn-primary">
         </div>

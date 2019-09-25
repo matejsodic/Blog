@@ -1,3 +1,12 @@
+.jumbotron {
+    background-color: lightcoral;
+    margin-bottom: 20px;
+}
+
+.container {
+    padding-left: 0px;
+    padding-right: 0px;
+}
 .post-container {
     margin: 20px auto;
     width: 62%;
@@ -73,6 +82,11 @@
     text-align: center;
 }
 
+.post-wrap-container {
+    background-color: lightcoral;
+    border-radius: 5px;
+    padding-top: 10px;
+}
 /*--------------------------------------------------------------------------------------ADMIN PAGE----------------------------------------------------------------------------------------------------------*/
 #userh2 {
     text-align: center;
